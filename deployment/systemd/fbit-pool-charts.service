@@ -1,0 +1,17 @@
+[Unit]
+Description=FewBit pool: charts data collector (hash rate, difficulty, miners, workers on the home page)
+After=fbit-pool-redis.service fbit-pool-api.service
+Requires=fbit-pool-redis.service
+[Service]
+Type=simple
+User=fbitpool
+WorkingDirectory=/opt/fbit-nodejs-pool
+ExecStart=/usr/bin/node /opt/fbit-nodejs-pool/init.js -module=chartsDataCollector
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
